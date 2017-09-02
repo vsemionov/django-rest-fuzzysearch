@@ -20,5 +20,5 @@ before_script:
   - psql -U postgres -c 'create database rest_fuzzysearch;'
 
 script:
-  - coverage run example/manage.py test
+  - coverage run example/manage.py test example
   - coverage report
