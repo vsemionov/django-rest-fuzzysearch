@@ -30,7 +30,9 @@ class RankedFuzzySearchFilter(SearchFilter):
 
         queryset = queryset.annotate(rank=similarity)
 
-        if min_rank > 0.0:
+        if min_rank is None:
+            queryset = queryset.filter(rank__gt=0.0)
+        elif min_rank > 0.0:
             queryset = queryset.filter(rank__gte=min_rank)
 
         return queryset
@@ -40,7 +42,7 @@ class RankedFuzzySearchFilter(SearchFilter):
         search_terms = ' '.join(self.get_search_terms(request))
 
         if search_fields and search_terms:
-            min_rank = getattr(view, 'min_rank', 0.0)
+            min_rank = getattr(view, 'min_rank', None)
 
             queryset = self.search_queryset(queryset, search_fields, search_terms, min_rank)
 
@@ -53,7 +55,7 @@ class RankedFuzzySearchFilter(SearchFilter):
 class SearchableModelMixin(ViewSetMixin):
     search_fields = ()
 
-    min_rank = 0.0
+    min_rank = None
 
     def list(self, request, *args, **kwargs):
         query_terms = request.query_params.getlist(SearchFilter.search_param)

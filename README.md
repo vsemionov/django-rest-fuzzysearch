@@ -60,11 +60,11 @@ psql -U postgres -c "create extension pg_trgm;" <database>
     search_fields = ('username', 'first_name', 'last_name', 'email')
 ```
 
-5. Configure a minimum rank, after which the results will be truncated (optional, default is no truncation):
+5. Configure the minimum rank of the returned results (optional):
 ```
     min_rank = 0.25
 ```
-The rank of results varies between 0 and 1.
+The rank of results varies between 0 and 1. Numerical values specify inclusive boundaries (rank >= min_rank). Setting to None produces results with any non-zero rank (rank > 0). The default is None.
 
 #### Performance
 
@@ -142,5 +142,6 @@ cd example
 pip install -r requirements.txt
 # configure the database connection in example/settings.py
 python manage.py migrate
+python manage.py createsuperuser
 python manage.py runserver
 ```
