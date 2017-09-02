@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 setup(
     name='django-rest-fuzzysearch',
 
-    version='0.10.0',
+    version='0.5.0',
 
     description='Fuzzy Search for Django REST Framework',
 
