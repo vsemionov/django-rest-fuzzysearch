@@ -1,0 +1,24 @@
+language: python
+
+python:
+  - "3.6"
+
+addons:
+  postgresql: "9.6"
+
+services:
+  - postgresql
+
+install:
+  - pip install .
+  - pip install -r example/requirements.txt
+  - pip install coverage
+
+cache: pip
+
+before_script:
+  - psql -U postgres -c 'create database rest_fuzzysearch;'
+
+script:
+  - coverage run example/manage.py test
+  - coverage report

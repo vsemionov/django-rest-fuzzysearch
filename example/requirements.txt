@@ -1,0 +1,4 @@
+Django>=1.11
+djangorestframework
+django-rest-fuzzysearch
+psycopg2
